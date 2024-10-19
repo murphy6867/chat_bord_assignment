@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import typescriptEslintEslintPlugin from "@typescript-eslint/eslint-plugin";
 import globals from "globals";
 import tsParser from "@typescript-eslint/parser";
@@ -32,9 +33,9 @@ export default [{
         sourceType: "module",
 
         parserOptions: {
-            project: "tsconfig.json",
-            tsconfigRootDir: "/Users/murphy/Repo/assingment/data_wow_assignment/apps/api",
-        },
+            project: path.resolve(__dirname, "tsconfig.json"),
+            tsconfigRootDir: __dirname,
+          },
     },
 
     rules: {
