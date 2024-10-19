@@ -1,29 +1,39 @@
 # Bord Application
+
 ===
 
 # Start Application
+
 ===
 
 # Application architecture overview
+
 ===
 
 # Library & Frameswork
+
 ===
+
 ## Libraries
+
 - Next.JS
 - Nest.JS
 - Prisma
 
 ## Framesworks
+
 ## Utilities
+
 - [TypeScript](https://www.typescriptlang.org/) for static type checking
 - [ESLint](https://eslint.org/) for code linting
 - [Prettier](https://prettier.io) for code formatting
 
-# Start Unitest 
+# Start Unitest
+
 ===
 
 ## Useful Links
+
 ===
 Learn more about the power of Turborepo:
 
@@ -34,8 +44,8 @@ Learn more about the power of Turborepo:
 - [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
 - [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
 
-
 ### Remote Caching
+
 ===
 Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
 
