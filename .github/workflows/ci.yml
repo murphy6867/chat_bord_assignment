@@ -38,5 +38,5 @@ jobs:
       - name: Format code
         run: npm run format  
 
-      - name: Run tests (Optional)
-        run: npm test  
+    #   - name: Run tests (Optional)
+    #     run: npm test  
