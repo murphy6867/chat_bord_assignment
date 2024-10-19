@@ -32,6 +32,8 @@ model posts {
 model users {
   user_id  Int        @id @default(autoincrement())
   username String     @unique @db.VarChar(255)
+  email    String     @unique @db.VarChar(255)
+  password String
   comments comments[]
   posts    posts[]
 }
