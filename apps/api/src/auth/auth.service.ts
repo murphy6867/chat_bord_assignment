@@ -5,10 +5,13 @@ import { UserService } from 'src/user/user.service';
 @Injectable()
 export class AuthService {
   constructor(private readonly userService: UserService) {}
-  
-  registerUser(CreateUserDto: CreateUserDto) {
-    const user = this.userService.findByEmail(CreateUserDto.email);
-    if (user) throw new ConflictException('User already exist!');
-    return this.userService.create(CreateUserDto);
+  async registerUser(CreateUserDto: CreateUserDto) {
+    const user = await this.userService.findByEmail(CreateUserDto.email);
+
+    if (user !== null) {
+      throw new ConflictException('User already exist!');
+    } else {
+      return this.userService.create(CreateUserDto);
+    }
   }
 }
