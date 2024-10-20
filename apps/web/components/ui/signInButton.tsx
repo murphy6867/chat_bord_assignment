@@ -10,7 +10,7 @@ const SignInButton: FC<PropsWithChildren> = ({ children }) => {
   return (
     <>
       {" "}
-      <Link href={"/auth/signin"}>
+      <Link href={"/signin"}>
         <Button
           type="submit"
           className="w-full bg-green-500 hover:bg-green-400 rounded-xl hidden md:block"

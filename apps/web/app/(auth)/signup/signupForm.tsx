@@ -24,7 +24,7 @@ const SignUpForm: FC = () => {
 
         <div className="space-y-2">
           <Label htmlFor="username" className="text-white">Username: </Label>
-          <Input id="username" name="username" placeholder="Input your Username" className="bg-white" />
+          <Input id="username" name="username" placeholder="Input your Username" className="bg-white rounded-xl" />
           {state?.error?.username && (
             <p className="text-sm text-red-500">{state.error?.username}</p>
           )}
@@ -32,7 +32,7 @@ const SignUpForm: FC = () => {
 
         <div className="space-y-2">
           <Label htmlFor="email" className="text-white">Email: </Label>
-          <Input id="email" name="email" placeholder="Input your Email" className="bg-white" />
+          <Input id="email" name="email" placeholder="Input your Email" className="bg-white rounded-xl" />
           {state?.error?.email && (
             <p className="text-sm text-red-500">{state.error?.email}</p>
           )}
@@ -45,7 +45,7 @@ const SignUpForm: FC = () => {
             name="password"
             type="password"
             placeholder="Input your Password"
-            className="bg-white"
+            className="bg-white rounded-xl"
           />
           {state?.error?.password && (
             <div className="text-sm text-red-500">

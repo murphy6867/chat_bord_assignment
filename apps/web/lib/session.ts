@@ -5,15 +5,7 @@ import { jwtVerify, SignJWT } from "jose";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-
-export type Session = {
-    user: {
-        id: string;
-        name: string;
-    };
-    // accessToken: string;
-    // refreshToken: string;
-}
+import type {Session} from "./types"
 
 const secretKey = process.env.SESSION_SECRET_KEY!
 const encodedKey = new TextEncoder().encode(secretKey)
@@ -49,4 +41,8 @@ export async function getSession() {
         console.error("Failed to verify the session.", e);
         redirect("/signin");
     }
+}
+
+export async function deleteSession() {
+    await cookies().delete("session");
 }

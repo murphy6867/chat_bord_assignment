@@ -10,7 +10,7 @@ const SubmitButton = ({ children }: PropsWithChildren) => {
   return (
     <>
       {" "}
-      <Button type="submit" aria-disabled={pending} className="w-full bg-green-600 hover:bg-green-400">
+      <Button type="submit" aria-disabled={pending} className="w-full bg-green-600 hover:bg-green-400 text-white rounded-xl">
         {pending ? "Submitting ... " : children}
       </Button>
     </>

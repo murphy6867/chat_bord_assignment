@@ -29,7 +29,7 @@ const SignUpForm: FC = () => {
             id="username"
             name="username"
             placeholder="Input your Username"
-            className="bg-white"
+            className="bg-white rounded-xl"
           />
           {state?.error?.username && (
             <p className="text-sm text-red-500">{state.error?.username}</p>
@@ -45,7 +45,7 @@ const SignUpForm: FC = () => {
             name="password"
             type="password"
             placeholder="Input your Password"
-            className="bg-white"
+            className="bg-white rounded-xl"
           />
           {state?.error?.password && (
             <p className="text-sm text-red-500">{state.error?.password}</p>
@@ -61,7 +61,7 @@ const SignUpForm: FC = () => {
               sign up
             </Link>
           </p>
-          <Link href={"/blog"} className="text-xs underline text-white">
+          <Link href={"/"} className="text-xs underline text-white">
             Continue as guest
           </Link>
         </div>

@@ -30,12 +30,12 @@ export async function signUp(
     body: JSON.stringify(validationFields.data),
   });
   if (response.ok) {
-    redirect("/auth/signin");
+    redirect("/signin");
   } else
     return {
       message:
         response.status === 409
-          ? "The user is already existed!"
+          ? "The user is already existed"
           : response.statusText,
     };
 }
@@ -64,18 +64,17 @@ export async function signIn(
 
     if (response.ok) {
       const result = await response.json()
-      // TODO: Create The Session
       await createSession({
         user: {
           id: result.id,
           name: result.username,
         }
       })
-      redirect("/blog")
+      redirect("/")
       // console.log({ result }); { result: { id: 1, username: 'alex', email: 'alex1@mail.com' } }
     } else {
       return {
-        message: response.status === 401 ? "Invalid Credentials!" : response.statusText,
+        message: response.status === 401 ? "Email or Password Incorrect" : response.statusText,
       }
     }
 }
