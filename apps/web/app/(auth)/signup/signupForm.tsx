@@ -63,7 +63,7 @@ const SignUpForm: FC = () => {
         
         <p className="text-center text-white text-sm">
           Have an account?{" "}
-          <Link href={"/auth/signin"} className="font-bold underline">
+          <Link href={"/signin"} className="font-bold underline">
             sign in
           </Link>
         </p>

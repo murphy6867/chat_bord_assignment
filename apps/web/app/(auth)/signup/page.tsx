@@ -1,8 +1,8 @@
 import React from "react";
 import Image from "next/image";
 
-import SignInForm from "./signInForm";
-import CoverImage from "@/public/auth_cover.png";
+import SignUpForm from "./signupForm";
+import CoverImage from "@/public/images/auth_cover.png";
 
 const SignUpPage: React.FC = () => {
   return (
@@ -19,7 +19,7 @@ const SignUpPage: React.FC = () => {
         </div>
       </section>
       <section aria-label="Form input field" className="w-full lg:w-3/5 h-auto lg:h-auto flex items-center justify-center py-10">
-        <SignInForm />
+        <SignUpForm />
       </section>
     </main>
   );

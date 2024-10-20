@@ -2,6 +2,8 @@
 
 import { redirect } from "next/navigation";
 import { BACKEND_URL } from "./constants";
+import { createSession } from "./session";
+
 import { FormState, SignupFormSchema, SignInFormSchema } from "./types";
 
 export async function signUp(
@@ -63,7 +65,14 @@ export async function signIn(
     if (response.ok) {
       const result = await response.json()
       // TODO: Create The Session
-      console.log({ result });
+      await createSession({
+        user: {
+          id: result.id,
+          name: result.username,
+        }
+      })
+      redirect("/blog")
+      // console.log({ result }); { result: { id: 1, username: 'alex', email: 'alex1@mail.com' } }
     } else {
       return {
         message: response.status === 401 ? "Invalid Credentials!" : response.statusText,
