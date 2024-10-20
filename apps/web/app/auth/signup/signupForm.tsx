@@ -43,6 +43,7 @@ const SignUpForm: FC = () => {
           <Input
             id="password"
             name="password"
+            type="password"
             placeholder="Input your Password"
             className="bg-white"
           />
@@ -62,7 +63,7 @@ const SignUpForm: FC = () => {
         
         <p className="text-center text-white text-sm">
           Have an account?{" "}
-          <Link href={"/auth/signin"} className="font-bold">
+          <Link href={"/auth/signin"} className="font-bold underline">
             sign in
           </Link>
         </p>
