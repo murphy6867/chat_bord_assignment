@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import { FC, useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
@@ -11,9 +11,15 @@ import {
   HambergerBar,
   HomeIcon,
   RightArrow,
+  SignOutIcon,
 } from "@/public/icons/types";
 
-export default function Navbar() {
+import { Session } from "../../lib/types";
+interface NavbarProps {
+  session: Session | null;
+}
+
+export const Navbar: FC<NavbarProps> = ({ session }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -33,9 +39,9 @@ export default function Navbar() {
   };
 
   const menuItems = [
-    { href: "/blog", label: "Home", icon: HomeIcon, alt: "Home icon alt text" },
+    { href: "/", label: "Home", icon: HomeIcon, alt: "Home icon alt text" },
     {
-      href: "/myblog",
+      href: "/ourblog",
       label: "Our Blog",
       icon: BlogIcon,
       alt: "Blog icon alt text",
@@ -74,11 +80,26 @@ export default function Navbar() {
             </span>
           </Button>
           <div className="hidden md:block">
-            <Link href={"/signin"}>
+            {session !== null ? (
+              <div className="flex flex-row items-center space-x-4">
+                <p className="text-3xl text-white">{session?.user.name}</p>
+                <div className="w-10 h-10 rounded-full bg-white"></div>
+                <Link href={"/api/auth/signout"}>
+                  <Image
+                    src={SignOutIcon}
+                    width={25}
+                    height={25}
+                    alt={"Sign out icon alt"}
+                  />
+                </Link>
+              </div>
+            ) : (
+              <Link href={"/signin"}>
                 <Button className="font-medium text-md text-white bg-green-500 hover:bg-green-300 rounded-xl w-24 h-10">
                   Sign In
                 </Button>
-            </Link>
+              </Link>
+            )}
           </div>
         </div>
       </nav>
@@ -107,25 +128,49 @@ export default function Navbar() {
             <span className="sr-only">Close menu</span>
           </Button>
         </div>
+        {session && (
+          <div className="pb-6">
+            <p className="text-3xl text-white">{session?.user.name}</p>
+          </div>
+        )}
+
         <ul className="space-y-6">
           {menuItems.map((item) => (
-            <li key={item.href}>
+            <li key={item.href} className="flex flex-row space-x-3">
+              <Image src={item.icon} width={25} height={25} alt={item.alt} />
               <Link
                 href={item.href}
                 className="flex items-center text-white hover:text-emerald-200 transition-colors"
                 onClick={toggleMenu}
               >
-                <Image
-                  src={item.icon}
-                  width={25}
-                  height={25}
-                  alt={item.alt}
-                  className="me-3 text-white"
-                />
                 <p className="text-xl font-bold">{item.label}</p>
               </Link>
             </li>
           ))}
+          {session !== null ? (
+            <Link
+              href={"/api/auth/signout"}
+              className="flex flex-row space-x-3"
+            >
+              <Image
+                src={SignOutIcon}
+                width={25}
+                height={25}
+                alt={"Sign out icon alt"}
+              />
+              <p className="text-xl font-bold text-white">Sign Out</p>
+            </Link>
+          ) : (
+            <Link href={"/signin"} className="flex flex-row space-x-3">
+              <Image
+                src={SignOutIcon}
+                width={25}
+                height={25}
+                alt={"Sign out icon alt"}
+              />
+              <p className="text-xl font-bold text-white">Sign In</p>
+            </Link>
+          )}
         </ul>
       </div>
 
@@ -139,4 +184,4 @@ export default function Navbar() {
       )}
     </>
   );
-}
+};
