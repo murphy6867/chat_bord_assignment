@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 
-import SignUpForm from "./components/signupForm";
+import SignUpForm from "./signupForm";
 import CoverImage from "@/public/auth_cover.png";
 
 const SignUpPage: React.FC = () => {
