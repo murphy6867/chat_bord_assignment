@@ -68,10 +68,12 @@ export async function signIn(
         user: {
           id: result.id,
           name: result.username,
-        }
+        },
+        accessToken: result.accessToken,
+        refreshToken: result.refreshToken,
       })
+      console.log({ result }); 
       redirect("/")
-      // console.log({ result }); { result: { id: 1, username: 'alex', email: 'alex1@mail.com' } }
     } else {
       return {
         message: response.status === 401 ? "Email or Password Incorrect" : response.statusText,

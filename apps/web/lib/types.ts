@@ -44,6 +44,6 @@ export type Session = {
       id: string;
       name: string;
   };
-  // accessToken: string;
-  // refreshToken: string;
+  accessToken: string;
+  refreshToken: string;
 }

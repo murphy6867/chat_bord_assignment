@@ -15,6 +15,8 @@
 - Nest.JS
 - Prisma
 - [Jose] for encypt Session cookie
+- [nesjs/jwt] generate token from backend
+- [passport-jwt]
 
 ## Utilities
 
