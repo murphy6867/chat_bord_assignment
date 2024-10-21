@@ -1,20 +1,26 @@
-import { Injectable } from '@nestjs/common';
-// import { CreatePostDto } from './dto/create-post.dto';
-// import { UpdatePostDto } from './dto/update-post.dto';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { CreatePostDto } from './dto/create-post.dto';
+import { UpdatePostDto } from './dto/update-post.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class PostsService {
   constructor(private readonly prisma: PrismaService) {}
 
-  // create(createPostDto: CreatePostDto) {
-  //   return 'This action adds a new post';
-  // }
+  create(createPostDto: CreatePostDto) {
+    return this.prisma.post.create({
+      data: {
+        title: createPostDto.title,
+        content: createPostDto.content,
+        user: { connect: { id: createPostDto.userId } },
+      },
+    });
+  }
 
   findAll(categoryId: number, keyword: string) {
-    return this.prisma.posts.findMany({
+    return this.prisma.post.findMany({
       where: {
-        category_id: categoryId,
+        categoryId: categoryId,
         title: {
           contains: keyword,
         },
@@ -23,10 +29,10 @@ export class PostsService {
   }
 
   findAllByUserId(userId: number, categoryId: number, keyword: string) {
-    return this.prisma.posts.findMany({
+    return this.prisma.post.findMany({
       where: {
-        user_id: userId,
-        category_id: categoryId,
+        userId: userId,
+        categoryId: categoryId,
         title: {
           contains: keyword,
         },
@@ -34,8 +40,8 @@ export class PostsService {
     });
   }
 
-  findOne(id: number) {
-    return this.prisma.posts.findUnique({
+  async findOne(id: number) {
+    const post = await this.prisma.post.findUnique({
       where: {
         id,
       },
@@ -43,13 +49,26 @@ export class PostsService {
         comments: true,
       },
     });
+
+    if (!post) throw new NotFoundException(`Post not found.`);
+
+    return post;
   }
 
-  // update(id: number, updatePostDto: UpdatePostDto) {
-  //   return `This action updates a #${id} post`;
-  // }
+  update(postId: number, updatePostDto: UpdatePostDto) {
+    return this.prisma.post.update({
+      where: {
+        id: postId,
+      },
+      data: updatePostDto,
+    });
+  }
 
-  // remove(id: number) {
-  //   return `This action removes a #${id} post`;
-  // }
+  remove(postId: number) {
+    return this.prisma.post.delete({
+      where: {
+        id: postId,
+      },
+    });
+  }
 }

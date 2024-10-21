@@ -34,6 +34,7 @@ export class AuthService {
 
   async validateLocalUser(username: string, password: string) {
     const user = await this.userService.findByUsername(username);
+
     if (!user) {
       throw new UnauthorizedException('User not found!');
     }
