@@ -47,3 +47,24 @@ export type Session = {
   accessToken: string;
   refreshToken: string;
 };
+
+export type PostState =
+  | {
+      error?: {
+        title?: string[];
+        content?: string[];
+        userId: number;
+      };
+      message?: string;
+    }
+  | undefined;
+
+export const createPostSchema = z.object({
+  title: z
+    .string()
+    .min(1, { message: "Title should have at least 1 charecter." }),
+  content: z
+    .string()
+    .min(1, { message: "Title should have at least 1 charecter." }),
+  userId: z.number(),
+});
