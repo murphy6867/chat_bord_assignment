@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 // import { CreatePostDto } from './dto/create-post.dto';
 // import { UpdatePostDto } from './dto/update-post.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { posts } from '@prisma/client';
 
 @Injectable()
 export class PostsService {
@@ -12,7 +11,7 @@ export class PostsService {
   //   return 'This action adds a new post';
   // }
 
-  async findAll(): Promise<posts[]> {
+  async findAll() {
     const result = await this.prisma.posts.findMany();
     console.log(result);
     return result;
