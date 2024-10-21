@@ -11,15 +11,39 @@ export class PostsService {
   //   return 'This action adds a new post';
   // }
 
-  async findAll() {
-    const result = await this.prisma.posts.findMany();
-    console.log(result);
-    return result;
+  findAll(categoryId: number, keyword: string) {
+    return this.prisma.posts.findMany({
+      where: {
+        category_id: categoryId,
+        title: {
+          contains: keyword,
+        },
+      },
+    });
   }
 
-  // findOne(id: number) {
-  //   return `This action returns a #${id} post`;
-  // }
+  findAllByUserId(userId: number, categoryId: number, keyword: string) {
+    return this.prisma.posts.findMany({
+      where: {
+        user_id: userId,
+        category_id: categoryId,
+        title: {
+          contains: keyword,
+        },
+      },
+    });
+  }
+
+  findOne(id: number) {
+    return this.prisma.posts.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        comments: true,
+      },
+    });
+  }
 
   // update(id: number, updatePostDto: UpdatePostDto) {
   //   return `This action updates a #${id} post`;
