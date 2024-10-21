@@ -4,7 +4,7 @@ import HambergerBar from "./hamberger.svg";
 import HomeIcon from "./home-icon.svg";
 import HomeIconBlack from "./home-icon-black.svg";
 import RightArrow from "./right-arrow.svg";
-import SignOutIcon from "./log-out.svg"
+import SignOutIcon from "./log-out.svg";
 
 export {
   BlogIcon,
@@ -13,5 +13,5 @@ export {
   HomeIcon,
   HomeIconBlack,
   RightArrow,
-  SignOutIcon
+  SignOutIcon,
 };

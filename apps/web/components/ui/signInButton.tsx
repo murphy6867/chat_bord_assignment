@@ -6,7 +6,6 @@ import Link from "next/link";
 import { Button } from "./button";
 
 const SignInButton: FC<PropsWithChildren> = ({ children }) => {
-
   return (
     <>
       {" "}

@@ -53,7 +53,7 @@ export const Navbar: FC<NavbarProps> = ({ session }) => {
       <nav
         className={cn(
           "bg-emerald-950 fixed top-0 left-0 right-0 z-50 px-6",
-          isMenuOpen && "brightness-50"
+          isMenuOpen && "brightness-50",
         )}
       >
         <div className="max-w-screen-xl flex items-center justify-between mx-auto p-4">
@@ -108,7 +108,7 @@ export const Navbar: FC<NavbarProps> = ({ session }) => {
       <div
         className={cn(
           "fixed inset-y-0 right-0 z-50 w-64 bg-emerald-950 p-6 transition-transform duration-300 ease-in-out transform rounded-s-xl",
-          isMenuOpen ? "translate-x-0" : "translate-x-full"
+          isMenuOpen ? "translate-x-0" : "translate-x-full",
         )}
       >
         <div className="flex justify-between items-center mb-16">

@@ -1,7 +1,7 @@
 import { PropsWithChildren } from "react";
 
-import { Navbar } from "../../components/layout/Navbar"; 
-import SideBar from "../../components/layout/SideBar"
+import { Navbar } from "../../components/layout/Navbar";
+import SideBar from "../../components/layout/SideBar";
 
 import { getSession } from "../../lib/session";
 

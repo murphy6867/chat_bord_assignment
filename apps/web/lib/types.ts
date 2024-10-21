@@ -41,9 +41,9 @@ export const SignInFormSchema = z.object({
 
 export type Session = {
   user: {
-      id: string;
-      name: string;
+    id: string;
+    name: string;
   };
   accessToken: string;
   refreshToken: string;
-}
+};

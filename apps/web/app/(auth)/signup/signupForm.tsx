@@ -11,7 +11,6 @@ import SubmitButton from "@/components/ui/submitButton";
 import { signUp } from "@/lib/auth";
 
 const SignUpForm: FC = () => {
-  
   const [state, action] = useFormState(signUp, undefined);
 
   return (
@@ -23,23 +22,39 @@ const SignUpForm: FC = () => {
         )}
 
         <div className="space-y-2">
-          <Label htmlFor="username" className="text-white">Username: </Label>
-          <Input id="username" name="username" placeholder="Input your Username" className="bg-white rounded-xl" />
+          <Label htmlFor="username" className="text-white">
+            Username:{" "}
+          </Label>
+          <Input
+            id="username"
+            name="username"
+            placeholder="Input your Username"
+            className="bg-white rounded-xl"
+          />
           {state?.error?.username && (
             <p className="text-sm text-red-500">{state.error?.username}</p>
           )}
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="email" className="text-white">Email: </Label>
-          <Input id="email" name="email" placeholder="Input your Email" className="bg-white rounded-xl" />
+          <Label htmlFor="email" className="text-white">
+            Email:{" "}
+          </Label>
+          <Input
+            id="email"
+            name="email"
+            placeholder="Input your Email"
+            className="bg-white rounded-xl"
+          />
           {state?.error?.email && (
             <p className="text-sm text-red-500">{state.error?.email}</p>
           )}
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="password" className="text-white">Password: </Label>
+          <Label htmlFor="password" className="text-white">
+            Password:{" "}
+          </Label>
           <Input
             id="password"
             name="password"
@@ -60,7 +75,7 @@ const SignUpForm: FC = () => {
         </div>
 
         <SubmitButton>Sign Up</SubmitButton>
-        
+
         <p className="text-center text-white text-sm">
           Have an account?{" "}
           <Link href={"/signin"} className="font-bold underline">
