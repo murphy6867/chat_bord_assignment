@@ -1,50 +1,11 @@
+import { getProfile } from "@/lib/actions";
 import React from "react";
 
 const OurBlog = async () => {
+  const session = await getProfile()
   return (
     <div className="">
-      <h1>asdasdasdasdasdasdasdsad</h1>
-      <h1>asdasdasdasdasdasdasdsad</h1>
-      <h1>asdasdasdasdasdasdasdsad</h1>
-      <h1>asdasdasdasdasdasdasdsad</h1>
-      <h1>asdasdasdasdasdasdasdsad</h1>
-      <h1>asdasdasdasdasdasdasdsad</h1>
-      <h1>asdasdasdasdasdasdasdsad</h1>
-      <h1>asdasdasdasdasdasdasdsad</h1>
-      <h1>asdasdasdasdasdasdasdsad</h1>
-      <h1>asdasdasdasdasdasdasdsad</h1>
-      <h1>asdasdasdasdasdasdasdsad</h1>
-      <h1>asdasdasdasdasdasdasdsad</h1>
-      <h1>asdasdasdasdasdasdasdsad</h1>
-      <h1>asdasdasdasdasdasdasdsad</h1>
-      <h1>asdasdasdasdasdasdasdsad</h1>
-      <h1>asdasdasdasdasdasdasdsad</h1>
-      <h1>asdasdasdasdasdasdasdsad</h1>
-      <h1>asdasdasdasdasdasdasdsad</h1>
-      <h1>asdasdasdasdasdasdasdsad</h1>
-      <h1>asdasdasdasdasdasdasdsad</h1>
-      <h1>asdasdasdasdasdasdasdsad</h1>
-      <h1>asdasdasdasdasdasdasdsad</h1>
-      <h1>asdasdasdasdasdasdasdsad</h1>
-      <h1>asdasdasdasdasdasdasdsad</h1>
-      <h1>asdasdasdasdasdasdasdsad</h1>
-      <h1>asdasdasdasdasdasdasdsad</h1>
-      <h1>asdasdasdasdasdasdasdsad</h1>
-      <h1>asdasdasdasdasdasdasdsad</h1>
-      <h1>asdasdasdasdasdasdasdsad</h1>
-      <h1>asdasdasdasdasdasdasdsad</h1>
-      <h1>asdasdasdasdasdasdasdsad</h1>
-      <h1>asdasdasdasdasdasdasdsad</h1>
-      <h1>asdasdasdasdasdasdasdsad</h1>
-      <h1>asdasdasdasdasdasdasdsad</h1>
-      <h1>asdasdasdasdasdasdasdsad</h1>
-      <h1>asdasdasdasdasdasdasdsad</h1>
-      <h1>asdasdasdasdasdasdasdsad</h1>
-      <h1>asdasdasdasdasdasdasdsad</h1>
-      <h1>asdasdasdasdasdasdasdsad</h1>
-      <h1>asdasdasdasdasdasdasdsad</h1>
-      <h1>asdasdasdasdasdasdasdsad</h1>
-      <h1>asdasdasdasdasdasdasdsad</h1>
+      {JSON.stringify(session)}
     </div>
   );
 };
