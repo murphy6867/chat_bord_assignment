@@ -6,7 +6,12 @@ import { BlogIconBlack, HomeIconBlack } from "@/public/icons/types";
 
 const SideBar = () => {
   const menuItems = [
-    { href: "/", label: "Home", icon: HomeIconBlack, alt: "Home icon alt text" },
+    {
+      href: "/",
+      label: "Home",
+      icon: HomeIconBlack,
+      alt: "Home icon alt text",
+    },
     {
       href: "/ourblog",
       label: "Our Blog",

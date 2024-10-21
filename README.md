@@ -1,16 +1,15 @@
 # Bord Application
 
-
 ---
+
 # Start Application
 
-
-
 # Application architecture overview
-- 
 
+-
 
 # Library & Frameswork
+
 - Next.JS
 - Nest.JS
 - Prisma
