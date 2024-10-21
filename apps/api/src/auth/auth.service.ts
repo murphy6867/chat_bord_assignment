@@ -4,7 +4,7 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-import { verify } from 'argon2';
+import { verify, hash } from 'argon2';
 
 import { CreateUserDto } from '../user/dto/create-user.dto';
 import { UserService } from 'src/user/user.service';
@@ -48,6 +48,9 @@ export class AuthService {
 
   async login(userId: number, username?: string) {
     const { accessToken, refreshToken } = await this.generateTokens(userId);
+    const hashedRT = await hash(refreshToken);
+    await this.userService.updateHashedRefreshToken(userId, hashedRT);
+
     return {
       id: userId,
       username: username,
@@ -77,9 +80,16 @@ export class AuthService {
     return currentUser;
   }
 
-  async validateRefreshToken(userId: number) {
+  async validateRefreshToken(userId: number, refreshToken: string) {
     const user = await this.userService.findOne(userId);
     if (!user) throw new UnauthorizedException('User not found.');
+
+    const refreshTokenMatched = await verify(
+      user.hashedRefreshToken,
+      refreshToken,
+    );
+    if (!refreshTokenMatched)
+      throw new UnauthorizedException('Invalid refresh token.');
 
     const currentUser = { id: user.id };
     return currentUser;
@@ -87,11 +97,18 @@ export class AuthService {
 
   async refreshToken(userId: number, username: string) {
     const { accessToken, refreshToken } = await this.generateTokens(userId);
+    const hashedRT = await hash(refreshToken);
+    await this.userService.updateHashedRefreshToken(userId, hashedRT);
+
     return {
       id: userId,
       username: username,
       accessToken,
       refreshToken,
     };
+  }
+
+  async signOut(userId: number) {
+    return await this.userService.updateHashedRefreshToken(userId, null);
   }
 }

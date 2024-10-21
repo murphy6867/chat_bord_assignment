@@ -4,14 +4,14 @@ import {
   Get,
   Post,
   Request,
+  Req,
   UseGuards,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from '../user/dto/create-user.dto';
 import { LocalAuthGuard } from './guards/local-auth/local-auth.guard';
-import { JwtAuthGuard } from './guards/jwt-auth/jwt-auth.guard';
 import { RefreshAuthGuard } from './guards/refresh-auth/refresh-auth.guard';
-
+import { Public } from './decorators/public.decorator';
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
@@ -21,13 +21,13 @@ export class AuthController {
     return this.authService.registerUser(CreateUserDto);
   }
 
+  @Public()
   @UseGuards(LocalAuthGuard)
   @Post('signin')
   login(@Request() req) {
     return this.authService.login(req.user.id, req.user.username);
   }
 
-  @UseGuards(JwtAuthGuard)
   @Get('protected')
   getAll(@Request() req) {
     return {
@@ -35,9 +35,15 @@ export class AuthController {
     };
   }
 
+  @Public()
   @UseGuards(RefreshAuthGuard)
   @Post('refresh')
   refreshToken(@Request() req) {
     return this.authService.refreshToken(req.user.id, req.user.username);
+  }
+
+  @Post('signout')
+  signOut(@Req() req) {
+    return this.authService.signOut(req.user.id);
   }
 }
