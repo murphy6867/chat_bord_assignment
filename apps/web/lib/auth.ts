@@ -8,7 +8,7 @@ import { FormState, SignupFormSchema, SignInFormSchema } from "./types";
 
 export async function signUp(
   state: FormState,
-  formData: FormData,
+  formData: FormData
 ): Promise<FormState> {
   const validationFields = SignupFormSchema.safeParse({
     username: formData.get("username"),
@@ -42,7 +42,7 @@ export async function signUp(
 
 export async function signIn(
   state: FormState,
-  formData: FormData,
+  formData: FormData
 ): Promise<FormState> {
   const validationFields = SignInFormSchema.safeParse({
     username: formData.get("username"),

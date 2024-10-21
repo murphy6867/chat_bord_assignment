@@ -18,9 +18,13 @@ interface FilterOption {
 }
 
 const filterOptions: FilterOption[] = [
-  { id: 1, name: "Option 1" },
-  { id: 2, name: "Option 2" },
-  { id: 3, name: "Option 3" },
+  { id: 1, name: "History" },
+  { id: 2, name: "Food" },
+  { id: 3, name: "Pets" },
+  { id: 4, name: "Health" },
+  { id: 5, name: "Fashion" },
+  { id: 6, name: "Exercise" },
+  { id: 7, name: "Others" },
 ];
 
 const MainContent: FC<MainContentProps> = ({ contents }) => {
@@ -37,7 +41,7 @@ const MainContent: FC<MainContentProps> = ({ contents }) => {
   };
 
   return (
-    <main className="flex flex-col space-y-6">
+    <main className="flex flex-col space-y-6 w-screen">
       <section>
         <div className="flex flex-row space-x-2">
           <div className="w-3/5 relative">
@@ -56,7 +60,7 @@ const MainContent: FC<MainContentProps> = ({ contents }) => {
               textRender="Community"
             />
           </div>
-          <div className="w-1/5 ">
+          <div className="w-1/5">
             <ComponentDialog
               isOpen={isDialogOpen}
               onOpenChange={setIsDialogOpen}
@@ -66,15 +70,13 @@ const MainContent: FC<MainContentProps> = ({ contents }) => {
       </section>
       <section className="bg-white p-4 rounded-xl shadow">
         {filteredContents.map((content) => (
-          <div
-            key={content.id}
-            className="mb-4 p-4 border rounded"
-          >
+          <div key={content.id} className="mb-4 p-4 border rounded">
             <h2 className="text-xl font-semibold">{content.title}</h2>
             <p className="text-sm text-gray-500">User ID: {content.user_id}</p>
             <p className="mt-2">{content.content}</p>
           </div>
         ))}
+        {filteredContents.length === 0 && <h1>No Content</h1>}
       </section>
     </main>
   );
