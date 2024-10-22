@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 import { FC, useState } from "react";
-import { useFormState } from "react-dom";
+// import { useFormState } from "react-dom";
 
 import { createPost } from "@/lib/createPost";
 import { Button } from "@/components/ui/button";
@@ -14,7 +15,7 @@ import {
 import FilterDropdown from "./FilterDropdown";
 import { Input } from "./input";
 import { Textarea } from "./textarea";
-import SubmitButton from "./submitButton";
+// import SubmitButton from "./submitButton";
 
 interface ComponentDialogProps {
   isOpen: boolean;

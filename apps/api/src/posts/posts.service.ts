@@ -20,10 +20,17 @@ export class PostsService {
   findAll(categoryId: number, keyword: string) {
     return this.prisma.post.findMany({
       where: {
-        categoryId: categoryId,
         title: {
           contains: keyword,
         },
+        ...(categoryId && { categoryId }),
+      },
+      include: {
+        category: true,
+        _count: {
+          select: { comments: true },
+        },
+        user: { select: { id: true, username: true } },
       },
     });
   }
@@ -46,7 +53,17 @@ export class PostsService {
         id,
       },
       include: {
-        comments: true,
+        _count: {
+          select: { comments: true },
+        },
+        comments: {
+          select: {
+            id: true,
+            content: true,
+            createdAt: true,
+            user: { select: { username: true, id: true } },
+          },
+        },
       },
     });
 
