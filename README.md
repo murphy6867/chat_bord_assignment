@@ -29,9 +29,13 @@ Ensure you have the following installed:
     - Create another .env file in the apps/web/ directory and add the following keys:
         - BACKEND_URL=http://localhost:8000
         - SESSION_SECRET_KEY=ItGsQw+HHf0r5dAapNiEBeH1ZyDxO7Pxvjec1VjxsGs=
-3. Install Dependencies at root directory
-4. Run the Project at root directory
-5. Access the App:
+3. Set Up Prisma
+    - Navigate to the apps/api/ directory
+    - Run the following command to generate the Prisma client: [npx prisma generate]
+    - **Optional Run the Prisma migrations to set up your database schema: [npx prisma migrate dev]
+4. Install Dependencies at root directory
+5. Run the Project at root directory
+6. Access the App:
     - rontend: The frontend app will be available at http://localhost:3000.
     - Backend: The API server will be available at http://localhost:8000.
 
