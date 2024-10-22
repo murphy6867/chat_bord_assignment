@@ -31,11 +31,14 @@ export class PostsController {
 
   @Get('/users/:userId')
   findAllByUserId(
-    @Query('keyword') keyword: string,
+    // @Query('keyword') keyword: string,
     @Param('userId') userId: string,
-    @Query('categoryId') categoryId: string,
+    // @Query('categoryId') categoryId: string,
   ) {
-    return this.postsService.findAllByUserId(+userId, +categoryId, keyword);
+    return this.postsService.findAllByUserId(
+      +userId,
+      //  +categoryId, keyword
+    );
   }
 
   @Get(':id')

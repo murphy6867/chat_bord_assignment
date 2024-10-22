@@ -10,16 +10,16 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-interface FilterOption {
+interface CategoryOption {
   id: number;
   name: string;
 }
 
 interface FilterDropdownProps {
-  options: FilterOption[];
-  selectedFilter: FilterOption | null;
+  options: CategoryOption[];
+  selectedFilter: CategoryOption | null;
   textRender: string;
-  onSelect: (option: FilterOption) => void;
+  onSelect: (option: CategoryOption) => void;
 }
 
 const FilterDropdown: FC<FilterDropdownProps> = ({

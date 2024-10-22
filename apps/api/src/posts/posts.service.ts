@@ -13,6 +13,7 @@ export class PostsService {
         title: createPostDto.title,
         content: createPostDto.content,
         user: { connect: { id: createPostDto.userId } },
+        category: { connect: { id: createPostDto.categoryId } },
       },
     });
   }
@@ -35,14 +36,17 @@ export class PostsService {
     });
   }
 
-  findAllByUserId(userId: number, categoryId: number, keyword: string) {
+  findAllByUserId(userId: number) {
     return this.prisma.post.findMany({
       where: {
         userId: userId,
-        categoryId: categoryId,
-        title: {
-          contains: keyword,
+      },
+      include: {
+        category: true,
+        _count: {
+          select: { comments: true },
         },
+        user: { select: { username: true } },
       },
     });
   }
@@ -56,6 +60,8 @@ export class PostsService {
         _count: {
           select: { comments: true },
         },
+        user: { select: { id: true, username: true } },
+        category: { select: { name: true } },
         comments: {
           select: {
             id: true,
