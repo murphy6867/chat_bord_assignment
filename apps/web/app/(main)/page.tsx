@@ -1,22 +1,18 @@
 import { FC } from "react";
 
-import MainContent from "@/components/layout/MainContent";
 import { BACKEND_URL } from "@/lib/constants";
+import MainBlog from "./mainblog/page";
 
 const HomePage: FC = async () => {
-  // const responsePost = await fetch(`${BACKEND_URL}/posts`);
-  const responsePost = await fetch(`${BACKEND_URL}/posts`);
-  // const responseCategory = await fetch;
+  const responsePost = await fetch(`${BACKEND_URL}/posts`, {
+    cache: "no-store",
+  });
   const posts = await responsePost.json();
 
-  // console.log("====================================");
-  // console.log("posts", posts);
-  // console.log("====================================");
-
   return (
-    <div className="flex flex-1 min-h-screen overflow-hidden">
+    <div>
       <>
-        <MainContent contents={posts} />
+        <MainBlog posts={posts} />
       </>
     </div>
   );

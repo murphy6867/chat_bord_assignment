@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { FC } from "react";
 import { ChevronDown } from "lucide-react";
 

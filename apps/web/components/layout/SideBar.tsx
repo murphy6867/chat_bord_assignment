@@ -21,7 +21,7 @@ const SideBar = () => {
   ];
 
   return (
-    <div>
+    <div className="sm:w-2/3 md:w-3/4 lg:w-2/4 ">
       <ul className="space-y-6">
         {menuItems.map((item) => (
           <li key={item.href}>
