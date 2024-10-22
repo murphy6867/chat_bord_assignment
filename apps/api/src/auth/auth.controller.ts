@@ -31,7 +31,7 @@ export class AuthController {
   @Get('protected')
   getAll(@Request() req) {
     return {
-      message: `Now you can access this protected API, ID: ${req.user.id}`,
+      message: `${req.user.id}`,
     };
   }
 

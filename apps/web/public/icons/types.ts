@@ -6,6 +6,9 @@ import HomeIconBlack from "./home-icon-black.svg";
 import RightArrow from "./right-arrow.svg";
 import SignOutIcon from "./log-out.svg";
 import CommentIcon from "./comment-icon.svg";
+import LeftIcon from "./left-icone.svg";
+import TrashIcon from "./trash-icon.svg";
+import PenIcon from "./pen-icon.svg";
 
 export {
   BlogIcon,
@@ -14,6 +17,9 @@ export {
   HambergerBar,
   HomeIcon,
   HomeIconBlack,
+  LeftIcon,
   RightArrow,
+  PenIcon,
   SignOutIcon,
+  TrashIcon,
 };
