@@ -29,7 +29,7 @@ const SignUpForm: FC = () => {
             id="username"
             name="username"
             placeholder="Input your Username"
-            className="bg-white rounded-xl"
+            className="bg-white rounded-xl py-5"
           />
           {state?.error?.username && (
             <p className="text-sm text-red-500">{state.error?.username}</p>
@@ -45,7 +45,7 @@ const SignUpForm: FC = () => {
             name="password"
             type="password"
             placeholder="Input your Password"
-            className="bg-white rounded-xl"
+            className="bg-white rounded-xl py-5"
           />
           {state?.error?.password && (
             <p className="text-sm text-red-500">{state.error?.password}</p>

@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, FC } from "react";
+import { cn } from "@/lib/utils";
 
 interface ComponentDialogProps {
   isOpen: boolean;
@@ -8,6 +9,7 @@ interface ComponentDialogProps {
   title?: string;
   description?: string;
   children?: React.ReactNode;
+  isEditPost?: boolean;
 }
 
 const ComponentDialog: FC<ComponentDialogProps> = ({
@@ -16,6 +18,7 @@ const ComponentDialog: FC<ComponentDialogProps> = ({
   title,
   description,
   children,
+  isEditPost,
 }) => {
   return (
     <Transition appear show={isOpen} as={Fragment}>
@@ -47,7 +50,12 @@ const ComponentDialog: FC<ComponentDialogProps> = ({
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+              <Dialog.Panel
+                className={cn(
+                  "w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all",
+                  `${isEditPost === true ? "max-w-xl" : "max-w-md"}`
+                )}
+              >
                 {title && (
                   <Dialog.Title
                     as="h3"

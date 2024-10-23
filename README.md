@@ -5,7 +5,7 @@ This project is a web-based forum where users can ask questions, post topics, an
 
 # Application Architecture
 ## The project consists of two main components:
-- Frontend: Built with Next.js to handle the client-side rendering and interactions.
+- Frontend: Built with Next.js to handle the client-side rendering and interactions, while able to CRUD content in side web application.
 - Backend: Developed using NestJS to provide a RESTful API for managing users, posts, and comments.
 The frontend communicates with the backend to fetch and manipulate data, ensuring a responsive user experience.
 

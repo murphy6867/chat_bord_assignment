@@ -13,6 +13,7 @@ import ComponentDialog from "@/components/ui/ComponentDialog";
 
 import { Category, OurPostContent } from "./types";
 import { CommentIcon } from "@/public/icons/types";
+import { Textarea } from "../ui/textarea";
 
 interface OurContentProps {
   contents: OurPostContent[];
@@ -37,12 +38,16 @@ const OurContent: FC<OurContentProps> = ({ contents, category, userId }) => {
     defaultFilter,
     ...category,
   ]);
+
   const [selectedFilter, setSelectedFilter] = useState<CategoryOption | null>(
     defaultFilter
   );
+
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false); // edit
   const [postToDelete, setPostToDelete] = useState<OurPostContent | null>(null);
+  const [postToEdit, setPostToEdit] = useState<OurPostContent | null>(null); // edit
 
   const handleFilterSelect = (category: CategoryOption) => {
     setSelectedFilter(category);
@@ -78,6 +83,42 @@ const OurContent: FC<OurContentProps> = ({ contents, category, userId }) => {
     setIsDeleteDialogOpen(true);
   };
 
+  const handldeOpenEditDialog = (edit: OurPostContent) => {
+    setPostToEdit(edit);
+    setIsEditDialogOpen(true);
+  };
+
+  const handleEditPost = async () => {
+    if (postToEdit) {
+      try {
+        const response = await fetch(
+          `http://localhost:8000/posts/${postToEdit.id}`,
+          {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+            body: JSON.stringify({
+              title: postToEdit.title,
+              content: postToEdit.content,
+              categoryId: postToEdit.categoryId,
+            }),
+          }
+        );
+        setIsEditDialogOpen(false);
+      } catch (error) {
+        console.error("Error occurred:", error);
+        alert(
+          "An error occurred while processing your request. Please try again."
+        );
+        setIsEditDialogOpen(false);
+      } finally {
+        window.location.reload();
+      }
+    }
+  };
+
   const handleDeletePost = async () => {
     if (postToDelete) {
       try {
@@ -89,7 +130,6 @@ const OurContent: FC<OurContentProps> = ({ contents, category, userId }) => {
         );
 
         if (response.ok) {
-          // Update the UI to remove the deleted post
           const updatedContents = filteredContents.filter(
             (post) => post.id !== postToDelete.id
           );
@@ -105,11 +145,15 @@ const OurContent: FC<OurContentProps> = ({ contents, category, userId }) => {
   };
 
   useEffect(() => {
-    if (searchKeyword) {
-      fetchPostsByKeyword(searchKeyword);
-    } else {
-      setFilteredContents(contents);
-    }
+    const debounceTimeout = setTimeout(() => {
+      if (searchKeyword) {
+        fetchPostsByKeyword(searchKeyword);
+      } else {
+        setFilteredContents(contents);
+      }
+    }, 500);
+
+    return () => clearTimeout(debounceTimeout);
   }, [searchKeyword, contents]);
 
   return (
@@ -151,25 +195,96 @@ const OurContent: FC<OurContentProps> = ({ contents, category, userId }) => {
             onOpenChange={setIsDeleteDialogOpen}
           >
             <div className="text-center">
-              <p className="mb-4">Are you sure you want to delete this post?</p>
+              <h2 className="text-3xl font-medium pb-3">
+                Please confirm if you wish to delete the post
+              </h2>
+              <p className="mb-8 text-gray-500">
+                Are you sure you want to delete the post? Once deleted, it
+                cannot be recovered.
+              </p>
               <div className="flex justify-center space-x-4">
                 <button
-                  onClick={handleDeletePost}
-                  className="bg-red-500 text-white px-4 py-2 rounded-md"
-                >
-                  Yes, delete
-                </button>
-                <button
                   onClick={() => setIsDeleteDialogOpen(false)}
-                  className="bg-gray-500 text-white px-4 py-2 rounded-md"
+                  className="bg-gray-500 text-white px-4 py-2 rounded-xl w-32"
                 >
                   Cancel
+                </button>
+                <button
+                  onClick={handleDeletePost}
+                  className="bg-red-500 text-white px-4 py-2 rounded-xl w-32"
+                >
+                  Delete
                 </button>
               </div>
             </div>
           </ComponentDialog>
         )}
 
+        {isEditDialogOpen && (
+          <ComponentDialog
+            isOpen={isEditDialogOpen}
+            onOpenChange={setIsEditDialogOpen}
+            isEditPost={true}
+          >
+            <div className="text-start w-full flex flex-col items-start ">
+              <h2 className="text-3xl font-medium pb-3">Edit Post</h2>
+              <div className="flex flex-col gap-4 items-start w-full">
+                <div className="border border-green-500 rounded-xl font-bold text-green-500">
+                  <FilterDropdown
+                    options={categoryOptions}
+                    selectedFilter={
+                      categoryOptions.find(
+                        (option) => option.id === postToEdit?.categoryId
+                      ) || null
+                    }
+                    onSelect={(selectedCategory) =>
+                      setPostToEdit(
+                        (prev) =>
+                          prev && { ...prev, categoryId: selectedCategory.id }
+                      )
+                    }
+                    textRender={""}
+                  />
+                </div>
+                <Input
+                  type="text"
+                  placeholder="Title"
+                  className="w-full border-gray-300 rounded-xl py-3"
+                  value={postToEdit?.title || ""}
+                  onChange={(e) =>
+                    setPostToEdit(
+                      (prev) => prev && { ...prev, title: e.target.value }
+                    )
+                  }
+                />
+                <Textarea
+                  placeholder="Content"
+                  className="w-full h-32 border-gray-300 rounded-xl py-3 px-4"
+                  value={postToEdit?.content || ""}
+                  onChange={(e) =>
+                    setPostToEdit(
+                      (prev) => prev && { ...prev, content: e.target.value }
+                    )
+                  }
+                />
+              </div>
+              <div className="flex justify-end space-x-4 mt-6 w-full ">
+                <button
+                  onClick={() => setIsEditDialogOpen(false)}
+                  className="bg-white border border-green-500 hover:bg-green-200  text-green-500 px-4 py-2 rounded-xl w-32"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleEditPost}
+                  className="bg-green-500 hover:bg-green-400 text-white px-4 py-2 rounded-xl w-32"
+                >
+                  Confirm
+                </button>
+              </div>
+            </div>
+          </ComponentDialog>
+        )}
         {filteredContents.map((post) => (
           <div className="p-6 border-b border-gray-300">
             <div className="flex items-center justify-between gap-3 mb-">
@@ -182,13 +297,21 @@ const OurContent: FC<OurContentProps> = ({ contents, category, userId }) => {
                 </div>
               </div>
               <div className="flex gap-7">
-                <Image src={PenIcon} width={18} height={18} alt="Pen Image" />
+                <Image
+                  src={PenIcon}
+                  width={18}
+                  height={18}
+                  alt="Pen Image"
+                  onClick={() => handldeOpenEditDialog(post)}
+                  className="hover:cursor-pointer"
+                />
                 <Image
                   src={TrashIcon}
                   width={18}
                   height={18}
                   alt="Trash Image"
                   onClick={() => handleOpenDeleteDialog(post)}
+                  className="hover:cursor-pointer"
                 />
               </div>
             </div>
@@ -196,7 +319,7 @@ const OurContent: FC<OurContentProps> = ({ contents, category, userId }) => {
               {post.category.name}
             </span>
             <h3 className="text-xl font-semibold mb-2 mt-4">{post.title}</h3>
-            <p className="text-gray-700 overflow-hidden text-ellipsis max-h-[3.6em] line-clamp-2">
+            <p className="text-gray-700 overflow-hidden text-ellipsis ">
               {post.content}
             </p>
             <div className="mt-4 flex flex-row gap-2">
