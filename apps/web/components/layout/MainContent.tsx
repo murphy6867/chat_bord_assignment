@@ -80,11 +80,15 @@ const MainContent: FC<MainContentProps> = ({
   };
 
   useEffect(() => {
-    if (searchKeyword) {
-      fetchPostsByKeyword(searchKeyword);
-    } else {
-      setFilteredContents(contents);
-    }
+    const debounceTimeout = setTimeout(() => {
+      if (searchKeyword) {
+        fetchPostsByKeyword(searchKeyword);
+      } else {
+        setFilteredContents(contents);
+      }
+    }, 500);
+
+    return () => clearTimeout(debounceTimeout);
   }, [searchKeyword, contents]);
 
   return (
